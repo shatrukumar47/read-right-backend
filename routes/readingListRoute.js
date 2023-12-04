@@ -48,12 +48,12 @@ readingListRoute.post("/create", authMiddleware, async (req, res)=>{
       if (!readingList.books.includes(bookID)) {
         readingList.books.push(bookID);
         const updatedReadingList = await readingList.save();
-        res.json(updatedReadingList);
+        res.json({updatedReadingList, msg: "Book added ✔"});
       }else {
-        res.status(400).json({ msg: 'Book already in the reading list' });
+        res.status(200).json({ msg: 'Book already in the reading list' });
       }
     }else {
-      res.status(404).json({ msg: 'Reading list not found' });
+      res.status(200).json({ msg: 'Reading list not found' });
     }
   } catch (error) {
     res.status(400).send({ error: error.message });

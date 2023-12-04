@@ -94,7 +94,7 @@ cartRouter.get("/items", authMiddleware, async (req, res) => {
 
 });
 
-// After the purchase is confirmed
+// After the purchase is confirmed empty the cart
 cartRouter.post("/complete-purchase", authMiddleware, async (req, res) => {
     try {
       const userID = req.body.userID;
