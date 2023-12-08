@@ -17,19 +17,19 @@ bookReviewRoute.get("/:id", async(req, res)=>{
 
 //post a review
 bookReviewRoute.post("/create",authMiddleware, async(req, res)=>{
-    const {userID} = req.body;
+    const {userID, bookID} = req.body;
 
     try {
 
-        const existingReview = await BookReviewModel.findOne({userID: userID});
+        const existingReview = await BookReviewModel.findOne({userID: userID, bookID: bookID});
 
         if(existingReview){
-           return res.status(200).send({"msg": "already reviewed"});
+           return res.status(200).send({"msg": "Already reviewed", reviewed: false});
         }
 
         const newReview = new BookReviewModel(req.body);
         newReview.save();
-        res.status(200).send({"msg": "Review posted", review: newReview});
+        res.status(200).send({"msg": "Review posted", review: newReview, reviewed: true});
 
     } catch (error) {
         res.status(400).send({error: error.message})

@@ -7,7 +7,7 @@ const communityDiscRoute = express.Router();
 //Get all discussions
 communityDiscRoute.get("/", async (req, res) => {
   try {
-    const allDiscussions = await CommunityDiscModel.find();
+    const allDiscussions = await CommunityDiscModel.find(req.query);
     res.status(200).json(allDiscussions);
   } catch (error) {
     res.status(400).send({ error: error.message });

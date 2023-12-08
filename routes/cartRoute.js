@@ -23,12 +23,12 @@ cartRouter.post("/add", authMiddleware, async (req, res) => {
   
       if (existingItem) {
         // If the book is already in the cart, update the quantity
-        res.status(200).json({ message: "Already added in the cart" });
+        res.status(200).json({ message: "Already in the cart" , added: false });
       } else {
         // If the book is not in the cart, add a new item
         cart.items.push({ book, quantity });
         await cart.save();
-        res.status(200).json({ message: "Book added to cart successfully", added: true });
+        res.status(200).json({ message: "Added to cart", added: true });
       }
   
     } catch (error) {
